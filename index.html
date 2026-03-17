@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tesoreria Pro | By Vibras Positivas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .vibras-gradient { background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); }
+    </div>
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen p-4 md:p-8">
+
+    <div class="max-w-5xl mx-auto">
+        <header class="flex flex-col md:flex-row justify-between items-center mb-10 border-b pb-6 border-slate-200">
+            <div class="text-center md:text-left">
+                <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">Monitor de Tesorería</h1>
+                <p class="text-indigo-600 font-semibold tracking-widest text-sm uppercase">Powered by Vibras Positivas</p>
+            </div>
+            <div class="mt-4 md:mt-0 px-4 py-2 vibras-gradient text-white rounded-full text-xs font-bold shadow-lg shadow-indigo-200">
+                ✨ VIBRAS POSITIVAS OFFICIAL APP
+            </div>
+        </header>
+
+        <main class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            <div class="lg:col-span-1 bg-white p-6 rounded-3xl shadow-xl border border-slate-100">
+                <h2 class="text-lg font-bold text-slate-800 mb-6 flex items-center">
+                    <span class="bg-indigo-100 p-2 rounded-lg mr-2">📥</span> Ingreso de Datos
+                </h2>
+                
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase">Saldo Disponible</label>
+                        <input type="number" id="saldo" placeholder="0.00" class="w-full mt-1 p-3 bg-slate-50 border-none rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase">Cobros del Mes</label>
+                        <input type="number" id="cobros" placeholder="0.00" class="w-full mt-1 p-3 bg-slate-50 border-none rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase">Pagos Pendientes</label>
+                        <input type="number" id="pagos" placeholder="0.00" class="w-full mt-1 p-3 bg-slate-50 border-none rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase">Gastos de Estructura</label>
+                        <input type="number" id="gastos" placeholder="0.00" class="w-full mt-1 p-3 bg-slate-50 border-none rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none">
+                    </div>
+                </div>
+
+                <button onclick="calcular()" class="w-full mt-8 vibras-gradient text-white font-bold py-4 rounded-2xl shadow-xl hover:opacity-90 transition-all transform hover:-translate-y-1">
+                    Analizar Salud
+                </button>
+            </div>
+
+            <div class="lg:col-span-2 space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                        <p class="text-xs font-bold text-slate-400 uppercase">Ratio Liquidez</p>
+                        <h3 id="val-liquidez" class="text-4xl font-black text-slate-900 mt-1">0.00</h3>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                        <p class="text-xs font-bold text-slate-400 uppercase">Días de Caja</p>
+                        <h3 id="val-dias" class="text-4xl font-black text-slate-900 mt-1">0</h3>
+                    </div>
+                </div>
+
+                <div id="card-diagnostico" class="bg-slate-100 p-10 rounded-3xl text-center min-h-[250px] flex flex-col justify-center items-center border-2 border-dashed border-slate-300 transition-all duration-500">
+                    <div id="icon-status" class="text-6xl mb-4">✨</div>
+                    <h2 id="msg-titulo" class="text-2xl font-extrabold text-slate-800">¿Cómo va tu empresa?</h2>
+                    <p id="msg-desc" class="text-slate-500 mt-2 max-w-sm">Calcula los indicadores para ver el diagnóstico de Vibras Positivas.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="space-y-8">
+            <section class="bg-slate-900 rounded-3xl p-8 text-white shadow-2xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div>
+                        <h3 class="text-indigo-400 font-bold mb-4 flex items-center">
+                            <span class="mr-2">📚</span> Guía de Métricas
+                        </h3>
+                        <div class="space-y-3 text-sm text-slate-300">
+                            <p><strong>Liquidez:</strong> Evalúa si puedes pagar tus deudas pronto. Un valor mayor a 1.2 es ideal.</p>
+                            <p><strong>Supervivencia:</strong> Cuántos días aguanta tu negocio solo con el dinero en banco hoy.</p>
+                        </div>
+                    </div>
+                    <div class="border-t md:border-t-0 md:border-l border-slate-700 pt-6 md:pt-0 md:pl-10">
+                        <h3 class="text-indigo-400 font-bold mb-2 flex items-center">
+                            <span class="mr-2">©️</span> Derechos de Autor
+                        </h3>
+                        <p class="text-xs text-slate-400 leading-relaxed italic">
+                            Esta aplicación y sus algoritmos de análisis financiero son propiedad intelectual de <strong>Vibras Positivas</strong>. 
+                            Queda prohibida su reproducción total o parcial sin autorización expresa del autor. 
+                            Desarrollado en 2026. Todos los derechos reservados.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="text-center text-slate-400 text-[10px] uppercase tracking-widest pb-8">
+                Design & Logic by Vibras Positivas &bull; v1.0.0
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function calcular() {
+            const saldo = parseFloat(document.getElementById('saldo').value) || 0;
+            const cobros = parseFloat(document.getElementById('cobros').value) || 0;
+            const pagos = parseFloat(document.getElementById('pagos').value) || 0;
+            const gastos = parseFloat(document.getElementById('gastos').value) || 0;
+
+            if(pagos === 0 && gastos === 0) {
+                alert("Por favor, ingresa los datos de salida (pagos o gastos).");
+                return;
+            }
+
+            const liquidez = (saldo + cobros) / (pagos > 0 ? pagos : 1);
+            const gastoDiario = gastos / 30;
+            const diasCaja = gastoDiario > 0 ? (saldo / gastoDiario) : "Infinito";
+
+            document.getElementById('val-liquidez').innerText = liquidez.toFixed(2);
+            document.getElementById('val-dias').innerText = typeof diasCaja === 'number' ? Math.round(diasCaja) : diasCaja;
+
+            const card = document.getElementById('card-diagnostico');
+            const titulo = document.getElementById('msg-titulo');
+            const desc = document.getElementById('msg-desc');
+            const icono = document.getElementById('icon-status');
+
+            card.style.border = "none";
+            
+            if (liquidez >= 1.5 && (diasCaja >= 45 || diasCaja === "Infinito")) {
+                card.className = "vibras-gradient p-10 rounded-3xl text-center text-white shadow-2xl transition-all scale-105";
+                titulo.innerText = "¡TODO EN ORDEN!";
+                desc.innerText = "Tu empresa tiene vibras positivas reales. La liquidez es alta y tienes un colchón financiero sólido.";
+                icono.innerText = "🚀";
+            } 
+            else if (liquidez >= 1 && diasCaja >= 15) {
+                card.className = "bg-amber-400 p-10 rounded-3xl text-center text-white shadow-xl transition-all";
+                titulo.innerText = "ATENCIÓN NECESARIA";
+                desc.innerText = "Estás en el punto de equilibrio. Es momento de optimizar cobros para evitar tensiones de caja.";
+                icono.innerText = "⚖️";
+            } 
+            else {
+                card.className = "bg-rose-500 p-10 rounded-3xl text-center text-white shadow-xl transition-all";
+                titulo.innerText = "CAMBIO DE ESTRATEGIA";
+                desc.innerText = "Alerta de liquidez. Revisa tus gastos fijos y prioriza la entrada de efectivo de inmediato.";
+                icono.innerText = "🚨";
+            }
+        }
+    </script>
+</body>
+</html>
