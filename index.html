@@ -9,18 +9,18 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .vibras-gradient { background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); }
-    </div>
+        .glass-dark { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px); }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen p-4 md:p-8">
 
-    <div class="max-w-5xl mx-auto">
+    <div class="max-w-6xl mx-auto">
         <header class="flex flex-col md:flex-row justify-between items-center mb-10 border-b pb-6 border-slate-200">
             <div class="text-center md:text-left">
                 <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">Monitor de Tesorería</h1>
                 <p class="text-indigo-600 font-semibold tracking-widest text-sm uppercase">Powered by Vibras Positivas</p>
             </div>
-            <div class="mt-4 md:mt-0 px-4 py-2 vibras-gradient text-white rounded-full text-xs font-bold shadow-lg shadow-indigo-200">
+            <div class="mt-4 md:mt-0 px-4 py-2 vibras-gradient text-white rounded-full text-xs font-bold shadow-lg">
                 ✨ VIBRAS POSITIVAS OFFICIAL APP
             </div>
         </header>
@@ -30,27 +30,25 @@
                 <h2 class="text-lg font-bold text-slate-800 mb-6 flex items-center">
                     <span class="bg-indigo-100 p-2 rounded-lg mr-2">📥</span> Ingreso de Datos
                 </h2>
-                
                 <div class="space-y-5">
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase">Saldo Disponible</label>
-                        <input type="number" id="saldo" placeholder="0.00" class="w-full mt-1 p-3 bg-slate-50 border-none rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none">
+                        <label class="block text-xs font-bold text-slate-500 uppercase italic">Saldo Disponible</label>
+                        <input type="number" id="saldo" placeholder="Ej: 2800000" class="w-full mt-1 p-3 bg-slate-50 border-none rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none font-bold">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase">Cobros del Mes</label>
-                        <input type="number" id="cobros" placeholder="0.00" class="w-full mt-1 p-3 bg-slate-50 border-none rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none">
+                        <label class="block text-xs font-bold text-slate-500 uppercase italic">Cobros del Mes</label>
+                        <input type="number" id="cobros" placeholder="Ej: 7500000" class="w-full mt-1 p-3 bg-slate-50 border-none rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none font-bold">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase">Pagos Pendientes</label>
-                        <input type="number" id="pagos" placeholder="0.00" class="w-full mt-1 p-3 bg-slate-50 border-none rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none">
+                        <label class="block text-xs font-bold text-slate-500 uppercase italic">Pagos Pendientes</label>
+                        <input type="number" id="pagos" placeholder="Ej: 4500000" class="w-full mt-1 p-3 bg-slate-50 border-none rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none font-bold">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase">Gastos de Estructura</label>
-                        <input type="number" id="gastos" placeholder="0.00" class="w-full mt-1 p-3 bg-slate-50 border-none rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none">
+                        <label class="block text-xs font-bold text-slate-500 uppercase italic">Gastos de Estructura (Mes)</label>
+                        <input type="number" id="gastos" placeholder="Ej: 2500000" class="w-full mt-1 p-3 bg-slate-50 border-none rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none font-bold">
                     </div>
                 </div>
-
-                <button onclick="calcular()" class="w-full mt-8 vibras-gradient text-white font-bold py-4 rounded-2xl shadow-xl hover:opacity-90 transition-all transform hover:-translate-y-1">
+                <button onclick="calcular()" class="w-full mt-8 vibras-gradient text-white font-bold py-4 rounded-2xl shadow-xl hover:opacity-90 transition-all transform hover:-translate-y-1 uppercase tracking-widest text-xs">
                     Analizar Salud
                 </button>
             </div>
@@ -62,48 +60,71 @@
                         <h3 id="val-liquidez" class="text-4xl font-black text-slate-900 mt-1">0.00</h3>
                     </div>
                     <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                        <p class="text-xs font-bold text-slate-400 uppercase">Días de Caja</p>
+                        <p class="text-xs font-bold text-slate-400 uppercase">Días de Caja (Oxígeno)</p>
                         <h3 id="val-dias" class="text-4xl font-black text-slate-900 mt-1">0</h3>
                     </div>
                 </div>
 
                 <div id="card-diagnostico" class="bg-slate-100 p-10 rounded-3xl text-center min-h-[250px] flex flex-col justify-center items-center border-2 border-dashed border-slate-300 transition-all duration-500">
-                    <div id="icon-status" class="text-6xl mb-4">✨</div>
-                    <h2 id="msg-titulo" class="text-2xl font-extrabold text-slate-800">¿Cómo va tu empresa?</h2>
-                    <p id="msg-desc" class="text-slate-500 mt-2 max-w-sm">Calcula los indicadores para ver el diagnóstico de Vibras Positivas.</p>
+                    <div id="icon-status" class="text-6xl mb-4">⚖️</div>
+                    <h2 id="msg-titulo" class="text-2xl font-extrabold text-slate-800">Consola de Diagnóstico</h2>
+                    <p id="msg-desc" class="text-slate-500 mt-2 max-w-sm italic text-sm">"Tus finanzas hablan, nosotros las traducimos."</p>
                 </div>
             </div>
         </main>
 
-        <footer class="space-y-8">
-            <section class="bg-slate-900 rounded-3xl p-8 text-white shadow-2xl">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    <div>
-                        <h3 class="text-indigo-400 font-bold mb-4 flex items-center">
-                            <span class="mr-2">📚</span> Guía de Métricas
-                        </h3>
-                        <div class="space-y-3 text-sm text-slate-300">
-                            <p><strong>Liquidez:</strong> Evalúa si puedes pagar tus deudas pronto. Un valor mayor a 1.2 es ideal.</p>
-                            <p><strong>Supervivencia:</strong> Cuántos días aguanta tu negocio solo con el dinero en banco hoy.</p>
+        <section class="bg-slate-900 rounded-[2.5rem] p-8 md:p-12 text-white shadow-2xl overflow-hidden relative">
+            <div class="absolute top-0 right-0 p-8 opacity-10 text-9xl font-black italic">WP</div>
+            
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-indigo-400 font-black text-xl mb-6 flex items-center italic">
+                        <span class="mr-3 text-2xl">📥</span> ENTRADAS: ¿QUÉ ANALIZAMOS?
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="bg-white/5 p-4 rounded-2xl hover:bg-white/10 transition-colors">
+                            <p class="font-bold text-sm text-indigo-200">Saldo Disponible</p>
+                            <p class="text-xs text-slate-400 leading-relaxed">Es el dinero real en bancos. Nos dice qué tan rápido puedes apagar un "incendio" financiero hoy mismo.</p>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-2xl hover:bg-white/10 transition-colors">
+                            <p class="font-bold text-sm text-indigo-200">Cobros del Mes</p>
+                            <p class="text-xs text-slate-400 leading-relaxed">Facturación pendiente. Al sumarlo al saldo, obtenemos tu **Caja Potencial** para cubrir el mes.</p>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-2xl hover:bg-white/10 transition-colors">
+                            <p class="font-bold text-sm text-indigo-200">Pagos y Gastos</p>
+                            <p class="text-xs text-slate-400 leading-relaxed">Es la "fuga" de dinero necesaria. Diferenciamos lo que debes a terceros de lo que cuesta mantener tu estructura.</p>
                         </div>
                     </div>
-                    <div class="border-t md:border-t-0 md:border-l border-slate-700 pt-6 md:pt-0 md:pl-10">
-                        <h3 class="text-indigo-400 font-bold mb-2 flex items-center">
-                            <span class="mr-2">©️</span> Derechos de Autor
-                        </h3>
-                        <p class="text-xs text-slate-400 leading-relaxed italic">
-                            Esta aplicación y sus algoritmos de análisis financiero son propiedad intelectual de <strong>Vibras Positivas</strong>. 
-                            Queda prohibida su reproducción total o parcial sin autorización expresa del autor. 
-                            Desarrollado en 2026. Todos los derechos reservados.
-                        </p>
+                </div>
+
+                <div>
+                    <h3 class="text-emerald-400 font-black text-xl mb-6 flex items-center italic">
+                        <span class="mr-3 text-2xl">📤</span> SALIDAS: ¿CÓMO SE CALCULA?
+                    </h3>
+                    <div class="space-y-6">
+                        <div class="bg-white/5 p-5 rounded-2xl border border-emerald-500/20">
+                            <p class="font-bold text-sm text-emerald-400">Fórmula de Liquidez</p>
+                            <div class="bg-black/40 p-3 my-2 rounded-xl text-center font-mono text-xs text-emerald-200">
+                                (Saldo + Cobros) ÷ Pagos Pendientes
+                            </div>
+                            <p class="text-[10px] text-slate-400">Si el resultado es **2.0**, significa que tienes 2 pesos por cada 1 que debes. ¡Excelente salud!</p>
+                        </div>
+                        <div class="bg-white/5 p-5 rounded-2xl border border-emerald-500/20">
+                            <p class="font-bold text-sm text-emerald-400">Fórmula de Supervivencia</p>
+                            <div class="bg-black/40 p-3 my-2 rounded-xl text-center font-mono text-xs text-emerald-200">
+                                Saldo Disponible ÷ (Gastos Mensuales ÷ 30)
+                            </div>
+                            <p class="text-[10px] text-slate-400">Nos dice cuántos días aguanta la empresa "a puerta cerrada" sin recibir ni un solo peso nuevo.</p>
+                        </div>
                     </div>
                 </div>
-            </section>
-            
-            <div class="text-center text-slate-400 text-[10px] uppercase tracking-widest pb-8">
-                Design & Logic by Vibras Positivas &bull; v1.0.0
             </div>
-        </footer>
+
+            <div class="mt-12 pt-8 border-t border-slate-800 text-center">
+                <p class="text-xs font-bold text-indigo-400 uppercase tracking-widest">© 2026 Vibras Positivas - Derechos de Autor Protegidos</p>
+                <p class="text-[10px] text-slate-500 mt-2 italic">Prohibida su reproducción total o parcial sin autorización expresa del autor.</p>
+            </div>
+        </section>
     </div>
 
     <script>
@@ -114,14 +135,16 @@
             const gastos = parseFloat(document.getElementById('gastos').value) || 0;
 
             if(pagos === 0 && gastos === 0) {
-                alert("Por favor, ingresa los datos de salida (pagos o gastos).");
+                alert("Por favor, ingresa tus compromisos financieros.");
                 return;
             }
 
+            // Lógica
             const liquidez = (saldo + cobros) / (pagos > 0 ? pagos : 1);
             const gastoDiario = gastos / 30;
-            const diasCaja = gastoDiario > 0 ? (saldo / gastoDiario) : "Infinito";
+            const diasCaja = gastoDiario > 0 ? (saldo / gastoDiario) : "∞";
 
+            // UI
             document.getElementById('val-liquidez').innerText = liquidez.toFixed(2);
             document.getElementById('val-dias').innerText = typeof diasCaja === 'number' ? Math.round(diasCaja) : diasCaja;
 
@@ -130,24 +153,22 @@
             const desc = document.getElementById('msg-desc');
             const icono = document.getElementById('icon-status');
 
-            card.style.border = "none";
-            
-            if (liquidez >= 1.5 && (diasCaja >= 45 || diasCaja === "Infinito")) {
+            if (liquidez >= 1.5 && (diasCaja >= 45 || diasCaja === "∞")) {
                 card.className = "vibras-gradient p-10 rounded-3xl text-center text-white shadow-2xl transition-all scale-105";
-                titulo.innerText = "¡TODO EN ORDEN!";
-                desc.innerText = "Tu empresa tiene vibras positivas reales. La liquidez es alta y tienes un colchón financiero sólido.";
+                titulo.innerText = "SANEADA Y FUERTE";
+                desc.innerText = "Tienes un pulmón financiero envidiable. Sigue así, el engranaje está perfecto.";
                 icono.innerText = "🚀";
             } 
-            else if (liquidez >= 1 && diasCaja >= 15) {
+            else if (liquidez >= 1 && diasCaja >= 20) {
                 card.className = "bg-amber-400 p-10 rounded-3xl text-center text-white shadow-xl transition-all";
-                titulo.innerText = "ATENCIÓN NECESARIA";
-                desc.innerText = "Estás en el punto de equilibrio. Es momento de optimizar cobros para evitar tensiones de caja.";
-                icono.innerText = "⚖️";
+                titulo.innerText = "ESTADO VULNERABLE";
+                desc.innerText = "Cuidado: Estás operando al límite. Un retraso en cobros podría comprometer tu estabilidad.";
+                icono.innerText = "⚠️";
             } 
             else {
                 card.className = "bg-rose-500 p-10 rounded-3xl text-center text-white shadow-xl transition-all";
-                titulo.innerText = "CAMBIO DE ESTRATEGIA";
-                desc.innerText = "Alerta de liquidez. Revisa tus gastos fijos y prioriza la entrada de efectivo de inmediato.";
+                titulo.innerText = "RIESGO DE QUIEBRA";
+                desc.innerText = "Alerta crítica: No tienes liquidez para cubrir deudas inmediatas. Necesitas gestión de crisis urgente.";
                 icono.innerText = "🚨";
             }
         }
